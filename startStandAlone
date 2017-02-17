@@ -1,0 +1,5 @@
+#!/bin/sh
+sudo docker build . -t apimysql 
+sudo docker run -p 5000:5000/tcp --name api --link mysqlserver:mysql -it --rm apimysql 
+#sudo docker inspect $CID | grep IPAddress
+ 

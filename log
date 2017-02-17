@@ -1,0 +1,114 @@
+Sending build context to Docker daemon 557.1 kBSending build context to Docker daemon 1.114 MBSending build context to Docker daemon 1.336 MB
+Step 1 : FROM microsoft/dotnet:1.0.1-sdk-projectjson
+ ---> 6434cf84b3bc
+Step 2 : WORKDIR /ContactsApi
+ ---> Using cache
+ ---> f34ea393574a
+Step 3 : COPY project.json .
+ ---> Using cache
+ ---> 3d54cea9b180
+Step 4 : RUN dotnet restore
+ ---> Using cache
+ ---> b0eecfc9c893
+Step 5 : COPY . .
+ ---> 2cf73aa3780d
+Removing intermediate container 6309546b9900
+Step 6 : RUN dotnet publish -c Debug -o out
+ ---> Running in b4498e4f4b82
+Publishing ContactsApi for .NETCoreApp,Version=v1.0
+Project ContactsApi (.NETCoreApp,Version=v1.0) will be compiled because the version or bitness of the CLI changed since the last build
+Compiling ContactsApi for .NETCoreApp,Version=v1.0
+
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time elapsed 00:00:08.5067980
+ 
+
+Configuring the following project for use with IIS: 'out'
+Updating web.config at 'out/web.config'
+Configuring project completed successfully
+publish: Published to out
+Published 1/1 projects successfully
+ ---> 738a43a3996f
+Removing intermediate container b4498e4f4b82
+Step 7 : RUN dotnet ef migrations add init2
+ ---> Running in 82ea5f3cd412
+Project ContactsApi (.NETCoreApp,Version=v1.0) was previously compiled. Skipping compilation.
+Done. To undo this action, use 'dotnet ef migrations remove'
+ ---> 0fd2df1e16a8
+Removing intermediate container 82ea5f3cd412
+Step 8 : RUN dotnet ef database update
+ ---> Running in 45c9dadaac26
+Project ContactsApi (.NETCoreApp,Version=v1.0) will be compiled because Input items added from last build
+Compiling ContactsApi for .NETCoreApp,Version=v1.0
+Compilation succeeded.
+    0 Warning(s)
+    0 Error(s)
+Time elapsed 00:00:02.9098188
+ 
+Done.
+ ---> 72cf3525ead0
+Removing intermediate container 45c9dadaac26
+Step 9 : EXPOSE 5000
+ ---> Running in 556dd0830d92
+ ---> 22516b453285
+Removing intermediate container 556dd0830d92
+Step 10 : ENTRYPOINT dotnet out/ContactsApi.dll
+ ---> Running in c61c266023c8
+ ---> c40cb976da93
+Removing intermediate container c61c266023c8
+Successfully built c40cb976da93
+[?1h=Hosting environment: Production
+Content root path: /ContactsApi
+Now listening on: http://*:5000
+Application started. Press Ctrl+C to shut down.
+[100m[32minfo[39m[0m: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://127.0.0.1:5000/api/contacts  
+[100m[32minfo[39m[0m: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method ContactsApi.Controllers.ContactsController.GetAll (ContactsApi) with arguments () - ModelState is Valid
+[100m[32minfo[39m[0m: Microsoft.AspNetCore.Mvc.Internal.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value Microsoft.AspNetCore.Mvc.ControllerContext.
+[100m[37mdbug[39m[0m: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[2]
+      Compiling query model: 'value(Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1[StartProject.Models.Contacts])'
+[100m[37mdbug[39m[0m: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[3]
+      Optimized query model: 'value(Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1[StartProject.Models.Contacts])'
+[100m[37mdbug[39m[0m: MySql.Data.EntityFrameworkCore.Query.Internal.MySQLQueryCompilationContextFactory[5]
+      TRACKED: True
+      (QueryContext queryContext) => IEnumerable<Contacts> _ShapedQuery(
+          queryContext: queryContext, 
+          shaperCommandContext: SelectExpression: 
+              SELECT `c`.`MobilePhone`, `c`.`AnniversaryDate`, `c`.`Company`, `c`.`DateOfBirth`, `c`.`Email`, `c`.`FirstName`, `c`.`IsFamilyMember`, `c`.`JobTitle`, `c`.`LastName`
+              FROM `Contacts` AS `c`
+          , 
+          shaper: UnbufferedEntityShaper<Contacts>
+      )
+      
+[100m[37mdbug[39m[0m: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[3]
+      Opening connection to database 'quintor' on server '172.17.0.2'.
+[100m[37mdbug[39m[0m: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[4]
+      Closing connection to database 'quintor' on server '172.17.0.2'.
+[100m[32minfo[39m[0m: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action ContactsApi.Controllers.ContactsController.GetAll (ContactsApi) in 1708.3351ms
+[100m[32minfo[39m[0m: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 2057.1213ms 200 application/json; charset=utf-8
+[100m[32minfo[39m[0m: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://127.0.0.1:5000/api/contacts application/json 275
+[100m[32minfo[39m[0m: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method ContactsApi.Controllers.ContactsController.Create (ContactsApi) with arguments (StartProject.Models.Contacts) - ModelState is Valid
+[100m[37mdbug[39m[0m: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[3]
+      Opening connection to database 'quintor' on server '172.17.0.2'.
+[100m[37mdbug[39m[0m: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[5]
+      Beginning transaction with isolation level 'Unspecified'.
+[100m[37mdbug[39m[0m: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[6]
+      Committing transaction.
+[100m[37mdbug[39m[0m: MySQL.Data.EntityFrameworkCore.MySQLServerConnection[4]
+      Closing connection to database 'quintor' on server '172.17.0.2'.
+[100m[32minfo[39m[0m: Microsoft.AspNetCore.Mvc.StatusCodeResult[1]
+      Executing HttpStatusCodeResult, setting HTTP status code 200
+[100m[32minfo[39m[0m: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action ContactsApi.Controllers.ContactsController.Create (ContactsApi) in 498.9368ms
+[100m[32minfo[39m[0m: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 503.0606ms 200 
+^C

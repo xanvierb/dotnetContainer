@@ -1,0 +1,10 @@
+#!/bin/sh
+sudo docker build . -t xanvier/contactsapi
+sudo docker images | grep xanvier/contactsapi
+echo -n "Geef Docker image naam: "
+read dockerimageid
+sudo docker tag $dockerimageid xanvier/contactsapi:latest
+sudo docker push xanvier/contactsapi:latest
+#sudo docker run -p 5000:5000/tcp --name api --link mysqlserver:mysql -it --rm apimysql 
+#sudo docker inspect $CID | grep IPAddress
+ 
